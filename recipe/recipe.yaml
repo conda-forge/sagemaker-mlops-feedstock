@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "1.7.1"
+  version: "1.10.0"
 
 package:
   name: sagemaker-mlops
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/sagemaker-mlops/sagemaker_mlops-${{ version }}.tar.gz
-  sha256: 75ee9af0f6f400266be6e11fdc34dcd81f9bebbfc5800f1c31050c36082f8d39
+  sha256: c6341c8323f7d408f8eabb3db470b832d8b26410e9f84641d3e6d32cd0b87733
 
 build:
   number: 0
@@ -27,11 +27,14 @@ requirements:
     - pip
   run:
     - python >=${{ python_min }}
-    - sagemaker-core >=2.5.0
-    - sagemaker-train >=1.5.0
-    - sagemaker-serve >=1.5.0
+    - sagemaker-core >=2.10.0
+    - sagemaker-train >=1.10.0
+    - sagemaker-serve >=1.10.0
     - boto3 >=1.42.2,<2.0
     - botocore >=1.42.2,<2.0
+    - pyiceberg >=0.8.0
+    - pyarrow >=14.0.0
+    - s3fs
 
 tests:
   - python:
