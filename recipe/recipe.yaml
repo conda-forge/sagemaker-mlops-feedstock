@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "1.12.0"
+  version: "1.15.0"
 
 package:
   name: sagemaker-mlops
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/sagemaker-mlops/sagemaker_mlops-${{ version }}.tar.gz
-  sha256: 28dfa5df51d307e0c5ab5d5ec412d90519d74885042fe83d34b98da212abcc4f
+  sha256: 8b73ee194f793eb2d68424529c559b5aee139edd8564f6fb9f84e4e5b4222f58
 
 build:
   number: 0
