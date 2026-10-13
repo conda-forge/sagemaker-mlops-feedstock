@@ -43,13 +43,19 @@ requirements:
     - protobuf >=5.29.5,<7
 
 tests:
-  - python:
-      imports:
-        - sagemaker.mlops
-      pip_check: true
-      python_version:
-        - ${{ python_min }}.*
-        - "*"
+  - script:
+      # sagemaker.mlops's import chain reaches AIRHub (via sagemaker-train), which
+      # builds boto3 clients at class-definition (import) time, so a region must be
+      # set or the import raises NoRegionError. Upstream fix tracked in
+      # aws/sagemaker-python-sdk PR #6401; remove this once a release includes it.
+      env:
+        AWS_DEFAULT_REGION: us-east-1
+      content:
+        - python -c "import sagemaker.mlops"
+        - pip check
+    requirements:
+      run:
+        - pip
 about:
   summary: SageMaker MLOps package for workflow orchestration and model building
   homepage: https://github.com/aws/sagemaker-python-sdk
