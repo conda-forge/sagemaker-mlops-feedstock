@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "1.12.0"
+  version: "1.24.0"
 
 package:
   name: sagemaker-mlops
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/s/sagemaker-mlops/sagemaker_mlops-${{ version }}.tar.gz
-  sha256: 28dfa5df51d307e0c5ab5d5ec412d90519d74885042fe83d34b98da212abcc4f
+  sha256: 1641c216e65f48519d880ae6cc632d76fb279c502210dcd26b0e1195236a9cac
 
 build:
   number: 0
@@ -35,6 +35,12 @@ requirements:
     - pyiceberg >=0.8.0
     - pyarrow >=14.0.0
     - s3fs
+  # protobuf arrives transitively via sagemaker-train/sagemaker-serve -> mlflow ->
+  # databricks-sdk, which forbids protobuf 5.26-5.28.* and 5.29.0-4. Without this the
+  # solver backtracks to protobuf 5.28.3 and `pip check` fails. Soft-constrain protobuf
+  # to the databricks-sdk-compatible window.
+  run_constraints:
+    - protobuf >=5.29.5,<7
 
 tests:
   - python:
